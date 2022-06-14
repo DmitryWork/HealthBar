@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealthBar : MonoBehaviour
 {
     [SerializeField] private Slider _bar;
-    [SerializeField] private PlayerHealthComponent _playerHealth;
+    [SerializeField] private Player _player;
 
     private readonly float _speed = 25f;
 
@@ -19,16 +19,15 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void Start()
     {
-        _bar.maxValue = _playerHealth.MaxHealth;
-        _bar.minValue = _playerHealth.MinHealth;
-        _bar.value = _playerHealth.Health;
+        _bar.maxValue = Player.MaxHealth;
+        _bar.minValue = Player.MinHealth;
+        _bar.value = _player.Health;
     }
 
-    public void OnChange(float value)
+    public void OnChange()
     {
         CheckExistCoroutine();
-        CheckInputValue(value, out float targetValue);
-        _coroutine = StartCoroutine(ChangeValue(targetValue));
+        _coroutine = StartCoroutine(ChangeValue());
     }
 
     private void CheckExistCoroutine()
@@ -39,30 +38,12 @@ public class PlayerHealthBar : MonoBehaviour
         }
     }
 
-    private void CheckInputValue(float value, out float targetValue)
+    private IEnumerator ChangeValue()
     {
-        float finalValue = _bar.value + value;
-
-        if (finalValue >= _bar.maxValue)
+        while (_bar.value != _player.Health)
         {
-            finalValue = _bar.maxValue;
-        }
-        else if (finalValue <= _bar.minValue)
-        {
-            finalValue = _bar.minValue;
-        }
-
-        targetValue = finalValue;
-    }
-
-    private IEnumerator ChangeValue(float targetValue)
-    {
-        while (_bar.value != targetValue)
-        {
-            _bar.value = Mathf.MoveTowards(_bar.value, targetValue, _speed * Time.deltaTime);
+            _bar.value = Mathf.MoveTowards(_bar.value, _player.Health, _speed * Time.deltaTime);
             yield return null;
         }
-
-        _playerHealth.SetValue(_bar.value);
     }
 }

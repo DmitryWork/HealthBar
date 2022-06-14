@@ -543,7 +543,6 @@ GameObject:
   - component: {fileID: 693425424}
   - component: {fileID: 693425423}
   - component: {fileID: 693425422}
-  - component: {fileID: 693425425}
   m_Layer: 5
   m_Name: HealBtn
   m_TagString: Untagged
@@ -616,9 +615,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 693425425}
-        m_TargetAssemblyTypeName: ModifyHealth, Assembly-CSharp
-        m_MethodName: ChangeValue
+      - m_Target: {fileID: 997270982}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnHeal
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -666,19 +665,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693425420}
   m_CullTransparentMesh: 1
---- !u!114 &693425425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693425420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c29f880de2a9ee40b31a29096ca84f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerHealthBar: {fileID: 1268369036}
 --- !u!1 &907907299
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,8 +711,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 997270984}
-  - component: {fileID: 997270982}
   - component: {fileID: 997270985}
+  - component: {fileID: 997270982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -746,7 +732,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2ca367b8d9462b8a349a6faf0938b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 20
+  _health: 50
+  _onHealthChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1268369036}
+        m_TargetAssemblyTypeName: PlayerHealthBar, Assembly-CSharp
+        m_MethodName: OnChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &997270984
 Transform:
   m_ObjectHideFlags: 0
@@ -961,7 +962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bar: {fileID: 1268369037}
-  _playerHealth: {fileID: 997270982}
+  _player: {fileID: 997270982}
 --- !u!114 &1268369037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,7 +1160,6 @@ GameObject:
   - component: {fileID: 1595028572}
   - component: {fileID: 1595028571}
   - component: {fileID: 1595028570}
-  - component: {fileID: 1595028569}
   m_Layer: 5
   m_Name: DamageBtn
   m_TagString: Untagged
@@ -1188,19 +1188,6 @@ RectTransform:
   m_AnchoredPosition: {x: -246.98999, y: 175}
   m_SizeDelta: {x: 493.98047, y: 147.4758}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1595028569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595028567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c29f880de2a9ee40b31a29096ca84f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerHealthBar: {fileID: 1268369036}
 --- !u!114 &1595028570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,15 +1232,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1595028569}
-        m_TargetAssemblyTypeName: ModifyPlayerHealth, Assembly-CSharp
-        m_MethodName: ChangeValue
+      - m_Target: {fileID: 997270982}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnTakeDamage
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: -10
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
