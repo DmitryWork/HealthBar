@@ -19,8 +19,8 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void Start()
     {
-        _bar.maxValue = Player.MaxHealth;
-        _bar.minValue = Player.MinHealth;
+        _bar.maxValue = _player.MaxHealth;
+        _bar.minValue = _player.MinHealth;
         _bar.value = _player.Health;
     }
 
